@@ -80,13 +80,6 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     {...field}
                     ref={refi}
                   />
-                  <div className="absolute top-7 right-8">
-                    <EmojiPicker
-                      onChange={(emoji: string) =>
-                        field.onChange(`${field.value} ${emoji}`)
-                      }
-                    />
-                  </div>
                 </div>
               </FormControl>
             </FormItem>
