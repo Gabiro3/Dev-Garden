@@ -16,11 +16,11 @@ export default function Page() {
               This is a private Garden
             </h2>
             <p className="mt-4 text-gray-600">
-              Consult one of the agents at your university to join or contact us at:
+              Consult one of our agents at your university to join or contact us at:
             </p>
             <p className="mt-2 text-gray-600">
               <a href="mailto:thegardenrwanda@gmail.com" className="text-blue-600 underline">
-                thegardenrwanda@gmail.com
+                oleonpublishers@gmail.com
               </a>
             </p>
           </div>
