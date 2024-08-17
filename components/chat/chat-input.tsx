@@ -78,7 +78,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     }`}
                     {...field}
                     ref={refi}
-                    rows={3} // Allows for a few lines of text
+                    rows={1} // Allows for a few lines of text
                   />
                   <button
                     type="submit"

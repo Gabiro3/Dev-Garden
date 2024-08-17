@@ -28,7 +28,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
     include: {
       channels: {
         where: {
-          name: "Announcements",
+          name: "general",
         },
         orderBy: {
           createdAt: "asc",
