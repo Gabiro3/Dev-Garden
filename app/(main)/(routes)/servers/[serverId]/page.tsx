@@ -28,7 +28,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
     include: {
       channels: {
         where: {
-          name: "general",
+          name: "Announcements",
         },
         orderBy: {
           createdAt: "asc",
@@ -39,7 +39,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
 
   const initalChannel = server?.channels[0];
 
-  if (initalChannel?.name !== "Announcements") {
+  if (initalChannel?.name !== "general") {
     return null;
   }
   return redirect(`/servers/${params.serverId}/channels/${initalChannel?.id}`);
