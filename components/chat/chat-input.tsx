@@ -6,11 +6,10 @@ import * as z from "zod";
 
 import { Form, FormControl, FormItem, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
+import { Plus, Send } from "lucide-react";  // Import the Send icon
 import axios from "axios";
 import qs from "query-string";
 import { useModal } from "@/hooks/use-model-store";
-import { EmojiPicker } from "../emoji-picker";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
@@ -55,7 +54,14 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault(); // Prevent form submission on Enter key
+          }
+        }}
+      >
         <FormField
           control={form.control}
           name="content"
@@ -80,6 +86,12 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     {...field}
                     ref={refi}
                   />
+                  <button
+                    type="submit"
+                    className="absolute top-7 right-8 h-[24px] w-[24px] bg-blue-500 hover:bg-blue-600 transition rounded-full p-1 flex items-center justify-center"
+                  >
+                    <Send className="text-white" />
+                  </button>
                 </div>
               </FormControl>
             </FormItem>
@@ -89,3 +101,4 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
     </Form>
   );
 };
+
