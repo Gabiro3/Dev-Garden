@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Form, FormControl, FormItem, FormField } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Plus, Send } from "lucide-react";  // Import the Send icon
+import { Textarea } from "@/components/ui/textarea"; // Use a Textarea component
+import { Plus, Send } from "lucide-react";
 import axios from "axios";
 import qs from "query-string";
 import { useModal } from "@/hooks/use-model-store";
@@ -27,7 +27,7 @@ const formSchema = z.object({
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const { onOpen } = useModal();
   const router = useRouter();
-  const refi = useRef<HTMLInputElement>(null);
+  const refi = useRef<HTMLTextAreaElement>(null); // Reference to the Textarea
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -54,14 +54,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault(); // Prevent form submission on Enter key
-          }
-        }}
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="content"
@@ -76,15 +69,16 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   >
                     <Plus className="text-white dark:text-[#313338]" />
                   </button>
-                  <Input
+                  <Textarea
                     disabled={isLoading}
                     autoFocus
-                    className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 "
+                    className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 resize-none"
                     placeholder={`Message ${
                       type === "conversation" ? name : "#" + name
                     }`}
                     {...field}
                     ref={refi}
+                    rows={3} // Allows for a few lines of text
                   />
                   <button
                     type="submit"
@@ -101,4 +95,5 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
     </Form>
   );
 };
+
 
