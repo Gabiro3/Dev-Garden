@@ -1,31 +1,36 @@
-// pages/setup.tsx
-
+"use client"
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { InitialModal } from "@/components/modals/initial-modal";
 import { db } from "@/lib/db";
 import { initialProfile } from "@/lib/initial-profile";
-import { redirect } from "next/navigation";
 
+const Setup = () => {
+  const router = useRouter();
 
-const Setup = async () => {
-  const profile = await initialProfile();
-  const server = await db.server.findFirst({
-    where: {
-      members: {
-        some: {
-          profileId: profile.id,
+  useEffect(() => {
+    const checkProfileAndServer = async () => {
+      const profile = await initialProfile();
+      const server = await db.server.findFirst({
+        where: {
+          members: {
+            some: {
+              profileId: profile.id,
+            },
+          },
         },
-      },
-    },
-  });
+      });
 
-  const isWelcomeShown = localStorage.getItem("isWelcomeShown");
-  if (!isWelcomeShown) {
-    redirect("/welcome");
-  }
+      const isWelcomeShown = localStorage.getItem("isWelcomeShown");
+      if (!isWelcomeShown) {
+        router.push("/welcome");
+      } else if (server) {
+        router.push(`/servers/${server.id}`);
+      }
+    };
 
-  if (server) {
-    return redirect(`/servers/${server.id}`);
-  }
+    checkProfileAndServer();
+  }, [router]);
 
   return (
     <div>
@@ -35,4 +40,5 @@ const Setup = async () => {
 };
 
 export default Setup;
+
 
