@@ -19,16 +19,23 @@ interface WelcomeModalProps {
 export const WelcomeModal = ({ serverId }: WelcomeModalProps) => {
   const [isMounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (isMounted && shouldRedirect) {
+      router.push(`/servers/${serverId}/channels/general`);
+    }
+  }, [isMounted, shouldRedirect, router, serverId]);
+
   const handleClose = () => {
     localStorage.setItem("welcomeModalShown", "true");
     setIsOpen(false);
-    router.push(`/servers/${serverId}/channels/general`);
+    setShouldRedirect(true);
   };
 
   if (!isMounted || !isOpen) {
@@ -75,4 +82,5 @@ export const WelcomeModal = ({ serverId }: WelcomeModalProps) => {
     </Dialog>
   );
 };
+
 
