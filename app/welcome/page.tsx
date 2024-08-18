@@ -1,5 +1,5 @@
 // pages/welcome.tsx
-
+"use client"
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -26,7 +26,7 @@ const Welcome = () => {
 
         <div className="space-y-6">
           <p className="text-lg leading-relaxed">
-            We're excited to have you here! Our platform is designed to help you manage your projects effectively.
+            We&apos;re excited to have you here! Our platform is designed to help you manage your projects effectively.
           </p>
 
           <div className="space-y-4">
