@@ -1,8 +1,8 @@
+import { currentProf } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import ClientSideComponent from "@/components/modals/client-side-component"; // Import the client-side component
-import { currentProf } from "@/lib/current-profile";
+
 interface ServerIdPageProps {
   params: {
     serverId: string;
@@ -42,14 +42,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
   if (initalChannel?.name !== "general") {
     return null;
   }
-
-  return (
-    <>
-      <ClientSideComponent /> {/* Include the client-side logic here */}
-      {redirect(`/servers/${params.serverId}/channels/${initalChannel?.id}`)}
-    </>
-  );
+  return redirect(`/servers/${params.serverId}/channels/${initalChannel?.id}`);
 };
 
 export default ServerIdPage;
-

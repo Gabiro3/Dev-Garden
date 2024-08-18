@@ -8,7 +8,7 @@ const ClientSideComponent = () => {
 
   useEffect(() => {
     // Logic to determine when to show the modal, e.g., based on user login status
-    // setShowModal(false); // Hide modal after some condition is met
+     setShowModal(true); // Hide modal after some condition is met
   }, []);
 
   return showModal ? <WelcomeModal /> : null;
