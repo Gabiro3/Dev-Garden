@@ -18,12 +18,10 @@ const Setup = async () => {
     },
   });
 
-  useEffect(() => {
-    const isWelcomeShown = localStorage.getItem("isWelcomeShown");
-    if (!isWelcomeShown) {
-      redirect("/welcome");
-    }
-  }, []);
+  const isWelcomeShown = localStorage.getItem("isWelcomeShown");
+  if (!isWelcomeShown) {
+    redirect("/welcome");
+  }
 
   if (server) {
     return redirect(`/servers/${server.id}`);
