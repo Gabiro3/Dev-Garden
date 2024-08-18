@@ -1,11 +1,8 @@
-"use client";
-import { currentProf } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
-import { WelcomeModal } from "@/components/modals/welcome-modal"; // Import the WelcomeModal component
-
+import ClientSideComponent from "@/components/modals/client-side-component"; // Import the client-side component
+import { currentProf } from "@/lib/current-profile";
 interface ServerIdPageProps {
   params: {
     serverId: string;
@@ -40,27 +37,16 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
     },
   });
 
-  const initialChannel = server?.channels[0];
+  const initalChannel = server?.channels[0];
 
-  if (initialChannel?.name !== "general") {
+  if (initalChannel?.name !== "general") {
     return null;
   }
 
-  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-
-  useEffect(() => {
-    const hasSeenWelcomeModal = localStorage.getItem("hasSeenWelcomeModal");
-
-    if (!hasSeenWelcomeModal) {
-      setShowWelcomeModal(true);
-      localStorage.setItem("hasSeenWelcomeModal", "true");
-    }
-  }, []);
-
   return (
     <>
-      {showWelcomeModal && <WelcomeModal />}
-      {redirect(`/servers/${params.serverId}/channels/${initialChannel?.id}`)}
+      <ClientSideComponent /> {/* Include the client-side logic here */}
+      {redirect(`/servers/${params.serverId}/channels/${initalChannel?.id}`)}
     </>
   );
 };
