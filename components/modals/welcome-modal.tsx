@@ -9,18 +9,26 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import Image from "next/image"; // Import the Image component
+import Image from "next/image";
+import { useRouter } from "next/router";
 
-export const WelcomeModal = () => {
+interface WelcomeModalProps {
+  serverId: string;
+}
+
+export const WelcomeModal = ({ serverId }: WelcomeModalProps) => {
   const [isMounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(true); // Assume the modal is open when the user first logs in
+  const [isOpen, setIsOpen] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const handleClose = () => {
+    localStorage.setItem("welcomeModalShown", "true");
     setIsOpen(false);
+    router.push(`/servers/${serverId}/channels/general`);
   };
 
   if (!isMounted || !isOpen) {
@@ -39,13 +47,12 @@ export const WelcomeModal = () => {
           </DialogDescription>
         </DialogHeader>
         <div className="px-6 space-y-6">
-          {/* Add your screenshots and descriptions here */}
           <div className="text-center">
             <Image
               src="https://ireme-ai.vercel.app/_next/image?url=%2Fstatic%2Fscreenshots%2Flist.png&w=1200&q=75"
               alt="Screenshot 1"
-              width={500} // Set an appropriate width
-              height={300} // Set an appropriate height
+              width={500}
+              height={300}
             />
             <p className="mt-2">Description for screenshot 1.</p>
           </div>
@@ -53,12 +60,11 @@ export const WelcomeModal = () => {
             <Image
               src="https://ireme-ai.vercel.app/_next/image?url=%2Fstatic%2Fscreenshots%2Flist.png&w=1200&q=75"
               alt="Screenshot 2"
-              width={500} // Set an appropriate width
-              height={300} // Set an appropriate height
+              width={500}
+              height={300}
             />
             <p className="mt-2">Description for screenshot 2.</p>
           </div>
-          {/* Add more screenshots as needed */}
         </div>
         <DialogFooter className="bg-gray-100 px-6 py-4">
           <Button variant="primary" onClick={handleClose}>
@@ -69,3 +75,4 @@ export const WelcomeModal = () => {
     </Dialog>
   );
 };
+

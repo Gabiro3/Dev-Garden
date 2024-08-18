@@ -2,6 +2,7 @@ import { currentProf } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { WelcomeModal } from "@/components/modals/welcome-modal";
 
 interface ServerIdPageProps {
   params: {
@@ -14,6 +15,15 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
 
   if (!profile) {
     return redirectToSignIn();
+  }
+
+  // Check if the welcome modal has been shown
+  const welcomeModalShown = typeof window !== "undefined" && localStorage.getItem("welcomeModalShown") === "true";
+
+  if (!welcomeModalShown) {
+    return (
+      <WelcomeModal serverId={params.serverId} />
+    );
   }
 
   const server = await db.server.findUnique({
@@ -37,12 +47,14 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
     },
   });
 
-  const initalChannel = server?.channels[0];
+  const initialChannel = server?.channels[0];
 
-  if (initalChannel?.name !== "general") {
+  if (initialChannel?.name !== "general") {
     return null;
   }
-  return redirect(`/servers/${params.serverId}/channels/${initalChannel?.id}`);
+
+  return redirect(`/servers/${params.serverId}/channels/${initialChannel?.id}`);
 };
 
 export default ServerIdPage;
+
