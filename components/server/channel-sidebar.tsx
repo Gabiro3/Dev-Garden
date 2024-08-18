@@ -33,7 +33,7 @@ const ChannelSidebar = async ({ serverId }: ChannelSidebarProps) => {
   const profile = await currentProf();
 
   if (!profile) {
-    return redirect("/");
+    return redirect("/sign-in");
   }
 
   const server = await db.server.findUnique({

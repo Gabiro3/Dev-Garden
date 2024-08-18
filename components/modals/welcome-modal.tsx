@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import Image from "next/image"; // Import the Image component
 
 export const WelcomeModal = () => {
   const [isMounted, setMounted] = useState(false);
@@ -40,11 +41,21 @@ export const WelcomeModal = () => {
         <div className="px-6 space-y-6">
           {/* Add your screenshots and descriptions here */}
           <div className="text-center">
-            <img src="https://ireme-ai.vercel.app/_next/image?url=%2Fstatic%2Fscreenshots%2Flist.png&w=1200&q=75" alt="Screenshot 1" />
+            <Image
+              src="https://ireme-ai.vercel.app/_next/image?url=%2Fstatic%2Fscreenshots%2Flist.png&w=1200&q=75"
+              alt="Screenshot 1"
+              width={500} // Set an appropriate width
+              height={300} // Set an appropriate height
+            />
             <p className="mt-2">Description for screenshot 1.</p>
           </div>
           <div className="text-center">
-            <img src="https://ireme-ai.vercel.app/_next/image?url=%2Fstatic%2Fscreenshots%2Flist.png&w=1200&q=75" alt="Screenshot 2" />
+            <Image
+              src="https://ireme-ai.vercel.app/_next/image?url=%2Fstatic%2Fscreenshots%2Flist.png&w=1200&q=75"
+              alt="Screenshot 2"
+              width={500} // Set an appropriate width
+              height={300} // Set an appropriate height
+            />
             <p className="mt-2">Description for screenshot 2.</p>
           </div>
           {/* Add more screenshots as needed */}

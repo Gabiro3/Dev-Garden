@@ -1,3 +1,4 @@
+"use client";
 import { currentProf } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
