@@ -29,7 +29,7 @@ const VideoOverlay = () => {
   onClick={handleClose}
   className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 transition-all shadow-lg"
 >
-  X
+  Close
 </button>
 
             <video
