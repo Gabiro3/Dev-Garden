@@ -18,7 +18,7 @@ const VideoOverlay = () => {
         onClick={handleOpen}
         className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition focus:outline-none"
       >
-        <YoutubeIcon className="h-4 w-4" />
+        <YoutubeIcon className="h-6 w-6" />
       </button>
 
       {/* Video Overlay */}
