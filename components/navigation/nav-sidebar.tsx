@@ -8,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavItem } from "./nav-item";
 import { ModeToggle } from "@/components/mode-toggle";
 import { UserButton } from "@clerk/nextjs";
-import { VideoOverlay } from "@/components/ui/video-demo"
+import VideoOverlay from "@/components/ui/video-demo"
 
 export const NavSidebar = async () => {
   const profile = await currentProf();

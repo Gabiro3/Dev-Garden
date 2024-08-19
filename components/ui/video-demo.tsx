@@ -31,7 +31,7 @@ const VideoOverlay = () => {
               &times;
             </button>
             <video controls autoPlay className="w-full rounded-b-lg">
-              <source src="/path-to-your-video.mp4" type="video/mp4" />
+              <source src="https://www.youtube.com/watch?v=a9__D53WsUs" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
