@@ -41,8 +41,8 @@ export const NavSidebar = async () => {
         ))}
       </ScrollArea>
       <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
-        <VideoOverlay />
         <ModeToggle />
+        <VideoOverlay />
         <UserButton
           afterSignOutUrl="/"
           appearance={{
