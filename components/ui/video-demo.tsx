@@ -1,44 +1,52 @@
-"use client"
-import React, { useState } from 'react';
+// components/VideoOverlay.tsx
+"use client";
+
+import { useState } from "react";
+import { Video } from "lucide-react";
 
 const VideoOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenVideo = () => {
-    setIsOpen(true);
-  };
-
-  const handleCloseVideo = () => {
-    setIsOpen(false);
-  };
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   return (
-    <>
+    <div>
+      {/* Video Button */}
       <button
-        className="text-gray-600 hover:text-gray-800 focus:outline-none"
-        onClick={handleOpenVideo}
+        onClick={handleOpen}
+        className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition focus:outline-none"
       >
-        <i className="fas fa-video text-3xl"></i> {/* Video Icon */}
+        <Video className="h-6 w-6" />
       </button>
 
+      {/* Video Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="relative w-full max-w-3xl bg-black rounded-lg shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="relative w-full max-w-4xl mx-auto p-4">
             <button
-              className="absolute top-2 right-2 text-white text-2xl focus:outline-none"
-              onClick={handleCloseVideo}
+              onClick={handleClose}
+              className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition"
             >
-              &times;
+              ✕
             </button>
-            <video controls autoPlay className="w-full rounded-b-lg">
-              <source src="https://www.youtube.com/watch?v=a9__D53WsUs" type="video/mp4" />
+            <video
+              className="w-full h-auto max-h-[80vh] rounded-lg"
+              controls
+              autoPlay
+            >
+              <source
+                src="https://www.youtube.com/watch?v=a9__D53WsUs"
+                type="video/mp4"
+              />
               Your browser does not support the video tag.
             </video>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
 export default VideoOverlay;
+
