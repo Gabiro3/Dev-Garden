@@ -1,4 +1,4 @@
-// components/VideoOverlay.tsx
+"use client"
 import React, { useState } from 'react';
 
 const VideoOverlay = () => {
