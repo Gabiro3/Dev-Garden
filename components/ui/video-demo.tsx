@@ -2,7 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import { Video } from "lucide-react";
+import { Video,YoutubeIcon } from "lucide-react";
+
 
 const VideoOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,7 @@ const VideoOverlay = () => {
         onClick={handleOpen}
         className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition focus:outline-none"
       >
-        <Video className="h-6 w-6" />
+        <YoutubeIcon className="h-4 w-4" />
       </button>
 
       {/* Video Overlay */}
@@ -28,7 +29,7 @@ const VideoOverlay = () => {
               onClick={handleClose}
               className="absolute left-0 bg-primary rounded-r-full transition-all w-[4px]"
             >
-              ✕
+              Close
             </button>
             <video
               className="w-full h-auto max-h-[80vh] rounded-lg"
