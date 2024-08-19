@@ -26,7 +26,7 @@ const VideoOverlay = () => {
           <div className="relative w-full max-w-4xl mx-auto p-4">
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition"
+              className="absolute left-0 bg-primary rounded-r-full transition-all w-[4px]"
             >
               ✕
             </button>
