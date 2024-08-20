@@ -66,10 +66,7 @@ export const ChatItem = ({
   const { onOpen } = useModal();
   const params = useParams();
   const router = useRouter();
-
-  if (deleted && content === "This message has been deleted") {
-    return null;
-  }
+  
 
   const onMemberClick = () => {
     if (member.id === currentMember.id) {
@@ -121,6 +118,9 @@ export const ChatItem = ({
       content: content,
     });
   }, [content]);
+  if (deleted && content === "This message has been deleted") {
+    return null;
+  }
 
   const fileType = fileUrl?.split(".").pop();
 
