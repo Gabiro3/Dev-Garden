@@ -111,7 +111,7 @@ export const ChatMessages = ({
   {data?.pages?.map((group, i) => (
     <Fragment key={i}>
       {group.items
-        .filter((message: MessageWithMemberWithProfile) => message.content !== "This message has been deleted")
+        .filter((message: MessageWithMemberWithProfile) => message.content !== "This message has been deleted.")
         .map((message: MessageWithMemberWithProfile) => (
           <ChatItem
             key={message.id}
