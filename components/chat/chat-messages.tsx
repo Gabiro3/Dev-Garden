@@ -108,26 +108,29 @@ export const ChatMessages = ({
         </div>
       )}
       <div className="flex flex-col-reverse mt-auto">
-        {data?.pages?.map((group, i) => (
-          <Fragment key={i}>
-            {group.items.map((message: MessageWithMemberWithProfile) => (
-              <ChatItem
-                key={message.id}
-                id={message.id}
-                currentMember={member}
-                member={message.member}
-                content={message.content}
-                fileUrl={message.fileUrl}
-                deleted={message.delete}
-                timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                isUpdated={message.updatedAt !== message.createdAt}
-                socketUrl={socketUrl}
-                socketQuery={socketQuery}
-              />
-            ))}
-          </Fragment>
+  {data?.pages?.map((group, i) => (
+    <Fragment key={i}>
+      {group.items
+        .filter((message: MessageWithMemberWithProfile) => message.content !== "This message has been deleted")
+        .map((message: MessageWithMemberWithProfile) => (
+          <ChatItem
+            key={message.id}
+            id={message.id}
+            currentMember={member}
+            member={message.member}
+            content={message.content}
+            fileUrl={message.fileUrl}
+            deleted={message.delete}
+            timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+            isUpdated={message.updatedAt !== message.createdAt}
+            socketUrl={socketUrl}
+            socketQuery={socketQuery}
+          />
         ))}
-      </div>
+    </Fragment>
+  ))}
+</div>
+
       <div ref={bottomRef} />
     </div>
   );
