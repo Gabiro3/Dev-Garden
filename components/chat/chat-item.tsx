@@ -67,6 +67,10 @@ export const ChatItem = ({
   const params = useParams();
   const router = useRouter();
 
+  if (deleted && content === "This message has been deleted") {
+    return null;
+  }
+
   const onMemberClick = () => {
     if (member.id === currentMember.id) {
       return;
