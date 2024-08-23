@@ -38,7 +38,7 @@ const VideoOverlay = () => {
               autoPlay
             >
               <source
-                src="./Demo.mp4"
+                src="Demo.mp4"
                 type="video/mp4"
               />
               Your browser does not support the video tag.
