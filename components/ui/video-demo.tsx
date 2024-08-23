@@ -2,8 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import { Video,YoutubeIcon } from "lucide-react";
-
+import { YoutubeIcon } from "lucide-react";
+import NextVideo from 'next-video';
+import Demo from '/videos/Demo.mp4';
 
 const VideoOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,18 +33,14 @@ const VideoOverlay = () => {
   Close
 </button>
 
-            <video
+            <NextVideo
+              src={Demo} // Assuming the video file is located in the `/videos` directory at the root
               className="w-full h-auto max-h-[80vh] rounded-lg"
-              controls
               autoPlay
-            >
-              <source
-                src="Demo.mp4"
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video>
+              controls
+            />
           </div>
+
         </div>
       )}
     </div>
