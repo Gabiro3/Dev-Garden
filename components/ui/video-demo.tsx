@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { YoutubeIcon } from "lucide-react";
 import NextVideo from 'next-video';
-import Demo from '/videos/Demo.mp4';
+
 
 const VideoOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ const VideoOverlay = () => {
 </button>
 
             <NextVideo
-              src={Demo} // Assuming the video file is located in the `/videos` directory at the root
+              src="videos/Demo.mp4" // Assuming the video file is located in the `/videos` directory at the root
               className="w-full h-auto max-h-[80vh] rounded-lg"
               autoPlay
               controls
