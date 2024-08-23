@@ -34,7 +34,7 @@ const VideoOverlay = () => {
 </button>
 
             <NextVideo
-              src="videos/Demo.mp4" // Assuming the video file is located in the `/videos` directory at the root
+              src="https://opendoorchristianschool.org.rw/images/Demo.mp4" // Assuming the video file is located in the `/videos` directory at the root
               className="w-full h-auto max-h-[80vh] rounded-lg"
               autoPlay
               controls
