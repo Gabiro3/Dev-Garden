@@ -33,12 +33,17 @@ const VideoOverlay = () => {
   Close
 </button>
 
-            <NextVideo
-              src="https://opendoorchristianschool.org.rw/images/Demo.mp4" // Assuming the video file is located in the `/videos` directory at the root
+<video
               className="w-full h-auto max-h-[80vh] rounded-lg"
-              autoPlay
               controls
-            />
+              autoPlay
+            >
+              <source
+                src="https://opendoorchristianschool.org.rw/images/Demo.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
 
         </div>
