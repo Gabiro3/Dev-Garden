@@ -29,7 +29,7 @@ import {
 import { useModal } from "@/hooks/use-model-store";
 
 export const ServerModal = () => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, onOpen } = useModal();
 
   const router = useRouter();
 
@@ -69,72 +69,82 @@ export const ServerModal = () => {
     form.reset();
     onClose();
   };
-
+  
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
-            Customize your server
-          </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
-            Give your server a cute name and an image, You can always change it
-            later.
-          </DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form
-            suppressHydrationWarning
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8"
+        <div className="flex">
+          <Button
+            variant="outline"
+            className="m-4"
+            onClick={() => onOpen("initial")}
           >
-            <div className="space-y-8 px-6">
-              <div className="flex items-center justify-center text-center">
-                <FormField
-                  control={form.control}
-                  name="imageUrl"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <UploadFile
-                          endpoint="serverImage"
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Server name
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                        placeholder="Enter server name"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
-                Create server
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+            Join Server
+          </Button>
+          <div className="flex-1">
+            <DialogHeader className="pt-8 px-6">
+              <DialogTitle className="text-2xl text-center font-bold">
+                Customize your server
+              </DialogTitle>
+              <DialogDescription className="text-center text-zinc-500">
+                Give your server a cute name and an image. You can always change it later.
+              </DialogDescription>
+            </DialogHeader>
+            <Form {...form}>
+              <form
+                suppressHydrationWarning
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                <div className="space-y-8 px-6">
+                  <div className="flex items-center justify-center text-center">
+                    <FormField
+                      control={form.control}
+                      name="imageUrl"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <UploadFile
+                              endpoint="serverImage"
+                              value={field.value}
+                              onChange={field.onChange}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                          Server name
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            disabled={isLoading}
+                            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                            placeholder="Enter server name"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <DialogFooter className="bg-gray-100 px-6 py-4">
+                  <Button variant="primary" disabled={isLoading}>
+                    Create server
+                  </Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
-  );
+  );;
 };
