@@ -23,8 +23,6 @@ import { useModal } from "@/hooks/use-model-store";
 export const InitialModal = () => {
   const [isMounted, setMounted] = useState(false);
   const router = useRouter();
-  const { isOpen, onClose, type, data } = useModal();
-  const isModalOpen = isOpen && type === "initial";
 
   useEffect(() => {
     setMounted(true);
@@ -63,13 +61,9 @@ export const InitialModal = () => {
   if (!isMounted) {
     return null;
   }
-  const handleClose = () => {
-    form.reset();
-    onClose();
-  };
-
+  
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleClose}>
+    <Dialog open>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">Join a Server</DialogTitle>
