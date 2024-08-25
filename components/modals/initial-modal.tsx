@@ -45,7 +45,6 @@ export const InitialModal = () => {
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
     try {
-      // Here, we are assuming the server invite link will lead to a valid page
       // Navigate to the URL if valid
       window.location.href = values.inviteLink;
     } catch (error) {
@@ -80,7 +79,7 @@ export const InitialModal = () => {
                     <Input
                       disabled={isLoading}
                       className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                      placeholder="https://discord.gg/example"
+                      placeholder="https://dev-garden-dusky.vercel.app/invite/7a726709-59ba-4191-8355-c5a515742d0d"
                       {...field}
                     />
                   </FormControl>
