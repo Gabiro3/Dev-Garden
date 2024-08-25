@@ -12,7 +12,7 @@ import { DeleteChannel } from "@/components/modals/delete-channel";
 import { EditChannelModal } from "@/components/modals/edit-channel";
 import { MessageFileModal } from "@/components/modals/message-file";
 import { DeleteMessage } from "../modals/delete-message";
-import { InitialModal } from "@/components/modals/initial-modal";
+
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -28,7 +28,7 @@ export const ModalProvider = () => {
   return (
     <>
       <ServerModal />
-      <InitialModal />
+
       <InviteModal />
       <EditServerModal />
       <MembersModal />

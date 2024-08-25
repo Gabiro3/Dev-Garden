@@ -131,9 +131,6 @@ export const ServerModal = () => {
               <Button variant="primary" disabled={isLoading}>
                 Create server
               </Button>
-              <Button variant="secondary" onClick={()=> onOpen("initial")}>
-                Join a server
-              </Button>
             </DialogFooter>
           </form>
         </Form>

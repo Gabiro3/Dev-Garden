@@ -46,11 +46,6 @@ export const InitialModal = () => {
   const onSubmit = async (values: z.infer<typeof schema>) => {
     try {
       // Here, we are assuming the server invite link will lead to a valid page
-      const response = await fetch(values.inviteLink);
-      if (!response.ok) {
-        throw new Error("Invalid Invitation Link");
-      }
-
       // Navigate to the URL if valid
       window.location.href = values.inviteLink;
     } catch (error) {
