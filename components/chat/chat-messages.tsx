@@ -1,3 +1,4 @@
+"use client"
 import { Fragment, useRef, ElementRef } from "react";
 import { format, isSameDay } from "date-fns";
 import { Member, Message, Profile } from "@prisma/client";
