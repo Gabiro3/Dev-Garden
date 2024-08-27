@@ -1,4 +1,3 @@
-"use client"
 import { Fragment, useRef, ElementRef } from "react";
 import { format, isSameDay } from "date-fns";
 import { Member, Message, Profile } from "@prisma/client";
@@ -7,7 +6,7 @@ import { Loader2, ServerCrash } from "lucide-react";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { useChatSocket } from "@/hooks/use-chat-socket";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
-import CustomDateSeparator from "./date-separator"; // Import the custom date separator
+import CustomDateSeparator from "./date-separator";
 import { ChatWelcome } from "./chat-welcome";
 import { ChatItem } from "./chat-item";
 
@@ -56,13 +55,16 @@ export const ChatMessages = ({
       paramKey,
       paramValue,
     });
+    
   useChatSocket({ queryKey, addKey, updateKey });
+
+  // Use the custom hook to manage scrolling
   useChatScroll({
     chatRef,
     bottomRef,
     loadMore: fetchNextPage,
     shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
-    count: data?.pages?.[0]?.items?.length ?? 0,
+    count: data?.pages?.reduce((acc, page) => acc + page.items.length, 0) ?? 0,
   });
 
   if (status === "loading") {
@@ -106,48 +108,48 @@ export const ChatMessages = ({
         </div>
       )}
       <div className="flex flex-col-reverse mt-auto">
-      {data?.pages?.map((group, i) => (
-  <Fragment key={i}>
-    {group.items
-      .filter(
-        (message: MessageWithMemberWithProfile) =>
-          message.content !== "This message has been deleted."
-      )
-      .map((message: MessageWithMemberWithProfile, index: number, arr: MessageWithMemberWithProfile[]) => {
-        const messageDate = new Date(message.createdAt);
-        const previousMessageDate =
-          index > 0 ? new Date(arr[index - 1].createdAt) : null;
-        const showDateSeparator =
-          !previousMessageDate ||
-          !isSameDay(messageDate, previousMessageDate);
+        {data?.pages?.map((group, i) => (
+          <Fragment key={i}>
+            {group.items
+              .filter(
+                (message: MessageWithMemberWithProfile) =>
+                  message.content !== "This message has been deleted."
+              )
+              .map((message: MessageWithMemberWithProfile, index: number, arr: MessageWithMemberWithProfile[]) => {
+                const messageDate = new Date(message.createdAt);
+                const previousMessageDate =
+                  index > 0 ? new Date(arr[index - 1].createdAt) : null;
+                const showDateSeparator =
+                  !previousMessageDate ||
+                  !isSameDay(messageDate, previousMessageDate);
 
-        return (
-          <Fragment key={message.id}>
-            {showDateSeparator && (
-              <CustomDateSeparator date={messageDate} />
-            )}
-            <ChatItem
-              id={message.id}
-              currentMember={member}
-              member={message.member}
-              content={message.content}
-              fileUrl={message.fileUrl}
-              deleted={message.delete}
-              timestamp={format(messageDate, DATE_FORMAT)}
-              isUpdated={message.updatedAt !== message.createdAt}
-              socketUrl={socketUrl}
-              socketQuery={socketQuery}
-            />
+                return (
+                  <Fragment key={message.id}>
+                    {showDateSeparator && (
+                      <CustomDateSeparator date={messageDate} />
+                    )}
+                    <ChatItem
+                      id={message.id}
+                      currentMember={member}
+                      member={message.member}
+                      content={message.content}
+                      fileUrl={message.fileUrl}
+                      deleted={message.delete}
+                      timestamp={format(messageDate, DATE_FORMAT)}
+                      isUpdated={message.updatedAt !== message.createdAt}
+                      socketUrl={socketUrl}
+                      socketQuery={socketQuery}
+                    />
+                  </Fragment>
+                );
+              })}
           </Fragment>
-        );
-      })}
-  </Fragment>
-))}
-
+        ))}
       </div>
 
       <div ref={bottomRef} />
     </div>
   );
 };
+
 
