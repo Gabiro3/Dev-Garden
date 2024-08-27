@@ -70,7 +70,7 @@ export const ChatMessages = ({
     if (bottomRef.current) {
       setTimeout(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-      }, 0)
+      }, 2)
     }
   }, [data]);
 
