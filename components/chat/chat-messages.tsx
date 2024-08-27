@@ -114,7 +114,7 @@ export const ChatMessages = ({
       )}
 
       {/* Render messages in normal order */}
-      <div className="flex flex-col-reverse">
+      <div className="flex flex-col">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
             {group.items
@@ -157,5 +157,4 @@ export const ChatMessages = ({
     </div>
   );
 };
-
 
