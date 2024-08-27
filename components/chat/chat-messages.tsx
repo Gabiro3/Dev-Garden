@@ -123,6 +123,9 @@ export const ChatMessages = ({
 
         return (
           <Fragment key={message.id}>
+            {showDateSeparator && (
+              <CustomDateSeparator date={messageDate} />
+            )}
             <ChatItem
               id={message.id}
               currentMember={member}
@@ -135,9 +138,6 @@ export const ChatMessages = ({
               socketUrl={socketUrl}
               socketQuery={socketQuery}
             />
-            {showDateSeparator && (
-              <CustomDateSeparator date={messageDate} />
-            )}
           </Fragment>
         );
       })}
