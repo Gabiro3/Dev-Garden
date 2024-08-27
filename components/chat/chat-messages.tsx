@@ -68,7 +68,9 @@ export const ChatMessages = ({
   // Auto-scroll to bottom when a new message is added
   useEffect(() => {
     if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 0); // You can increase the timeout duration if needed
     }
   }, [data]);
 
