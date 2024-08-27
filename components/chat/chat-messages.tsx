@@ -10,6 +10,7 @@ import { useChatScroll } from "@/hooks/use-chat-scroll";
 import CustomDateSeparator from "./date-separator"; // Import the custom date separator
 import { ChatWelcome } from "./chat-welcome";
 import { ChatItem } from "./chat-item";
+import { useEffect } from "react";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -64,6 +65,12 @@ export const ChatMessages = ({
     shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
     count: data?.pages?.[0]?.items?.length ?? 0,
   });
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [data]);
+  
 
   if (status === "loading") {
     return (
@@ -89,65 +96,67 @@ export const ChatMessages = ({
 
   return (
     <div ref={chatRef} className="flex-1 flex flex-col py-4 overflow-y-auto">
-      {!hasNextPage && <div className="flex-1" />}
-      {!hasNextPage && <ChatWelcome type={type} name={name} />}
-      {hasNextPage && (
-        <div className="flex justify-center">
-          {isFetchingNextPage ? (
-            <Loader2 className="h-6 w-6 text-zinc-500 animate-spin my-4" />
-          ) : (
-            <button
-              onClick={() => fetchNextPage()}
-              className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 text-xs my-4 dark:hover:text-zinc-300 transition"
-            >
-              Load previous messages
-            </button>
-          )}
-        </div>
+  {!hasNextPage && <div className="flex-1" />}
+  {!hasNextPage && <ChatWelcome type={type} name={name} />}
+  {hasNextPage && (
+    <div className="flex justify-center">
+      {isFetchingNextPage ? (
+        <Loader2 className="h-6 w-6 text-zinc-500 animate-spin my-4" />
+      ) : (
+        <button
+          onClick={() => fetchNextPage()}
+          className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 text-xs my-4 dark:hover:text-zinc-300 transition"
+        >
+          Load previous messages
+        </button>
       )}
-      <div className="flex flex-col-reverse mt-auto">
-      {data?.pages?.map((group, i) => (
-  <Fragment key={i}>
-    {group.items
-      .filter(
-        (message: MessageWithMemberWithProfile) =>
-          message.content !== "This message has been deleted."
-      )
-      .map((message: MessageWithMemberWithProfile, index: number, arr: MessageWithMemberWithProfile[]) => {
-        const messageDate = new Date(message.createdAt);
-        const previousMessageDate =
-          index > 0 ? new Date(arr[index - 1].createdAt) : null;
-        const showDateSeparator =
-          !previousMessageDate ||
-          !isSameDay(messageDate, previousMessageDate);
-
-        return (
-          <Fragment key={message.id}>
-            {showDateSeparator && (
-              <CustomDateSeparator date={messageDate} />
-            )}
-            <ChatItem
-              id={message.id}
-              currentMember={member}
-              member={message.member}
-              content={message.content}
-              fileUrl={message.fileUrl}
-              deleted={message.delete}
-              timestamp={format(messageDate, DATE_FORMAT)}
-              isUpdated={message.updatedAt !== message.createdAt}
-              socketUrl={socketUrl}
-              socketQuery={socketQuery}
-            />
-          </Fragment>
-        );
-      })}
-  </Fragment>
-))}
-
-      </div>
-
-      <div ref={bottomRef} />
     </div>
+  )}
+
+  {/* Use flex-col to render messages from oldest to newest */}
+  <div className="flex flex-col">
+    {data?.pages?.map((group, i) => (
+      <Fragment key={i}>
+        {group.items
+          .filter(
+            (message: MessageWithMemberWithProfile) =>
+              message.content !== "This message has been deleted."
+          )
+          .map((message: MessageWithMemberWithProfile, index: number, arr: MessageWithMemberWithProfile[]) => {
+            const messageDate = new Date(message.createdAt);
+            const previousMessageDate =
+              index > 0 ? new Date(arr[index - 1].createdAt) : null;
+            const showDateSeparator =
+              !previousMessageDate ||
+              !isSameDay(messageDate, previousMessageDate);
+
+            return (
+              <Fragment key={message.id}>
+                {showDateSeparator && (
+                  <CustomDateSeparator date={messageDate} />
+                )}
+                <ChatItem
+                  id={message.id}
+                  currentMember={member}
+                  member={message.member}
+                  content={message.content}
+                  fileUrl={message.fileUrl}
+                  deleted={message.delete}
+                  timestamp={format(messageDate, DATE_FORMAT)}
+                  isUpdated={message.updatedAt !== message.createdAt}
+                  socketUrl={socketUrl}
+                  socketQuery={socketQuery}
+                />
+              </Fragment>
+            );
+          })}
+      </Fragment>
+    ))}
+  </div>
+
+  <div ref={bottomRef} />
+</div>
+
   );
 };
 
