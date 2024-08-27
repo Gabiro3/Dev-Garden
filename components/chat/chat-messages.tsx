@@ -69,8 +69,8 @@ export const ChatMessages = ({
   useEffect(() => {
     if (bottomRef.current) {
       setTimeout(() => {
-        bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
-      }, 0); // You can increase the timeout duration if needed
+        bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 0)
     }
   }, [data]);
 
