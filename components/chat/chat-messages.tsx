@@ -95,7 +95,7 @@ export const ChatMessages = ({
   }
 
   return (
-    <div ref={chatRef} className="flex-1 flex flex-col-reverse py-4 overflow-y-auto">
+    <div ref={chatRef} className="flex-1 flex flex-col py-4 overflow-y-auto">
   {!hasNextPage && <div className="flex-1" />}
   {!hasNextPage && <ChatWelcome type={type} name={name} />}
   {hasNextPage && (
@@ -114,7 +114,7 @@ export const ChatMessages = ({
   )}
 
   {/* Use flex-col to render messages from oldest to newest */}
-  <div className="flex flex-col">
+  <div className="flex flex-col-reverse">
     {data?.pages?.map((group, i) => (
       <Fragment key={i}>
         {group.items
