@@ -105,7 +105,7 @@ export const ChatMessages = ({
           )}
         </div>
       )}
-      <div className="flex flex-col mt-auto">
+      <div className="flex flex-col-reverse mt-auto">
       {data?.pages?.map((group, i) => (
   <Fragment key={i}>
     {group.items
@@ -123,9 +123,6 @@ export const ChatMessages = ({
 
         return (
           <Fragment key={message.id}>
-            {showDateSeparator && (
-              <CustomDateSeparator date={messageDate} />
-            )}
             <ChatItem
               id={message.id}
               currentMember={member}
@@ -138,6 +135,9 @@ export const ChatMessages = ({
               socketUrl={socketUrl}
               socketQuery={socketQuery}
             />
+            {showDateSeparator && (
+              <CustomDateSeparator date={messageDate} />
+            )}
           </Fragment>
         );
       })}
