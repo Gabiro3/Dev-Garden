@@ -21,10 +21,8 @@ export const useChatScroll = ({
     const topDiv = chatRef?.current;
 
     const handleScroll = () => {
-      const scrollTop = topDiv?.scrollTop;
-
-      if (scrollTop === 0 && shouldLoadMore) {
-        loadMore()
+      if (topDiv?.scrollTop === 0 && shouldLoadMore) {
+        loadMore();
       }
     };
 
@@ -32,14 +30,15 @@ export const useChatScroll = ({
 
     return () => {
       topDiv?.removeEventListener("scroll", handleScroll);
-    }
+    };
   }, [shouldLoadMore, loadMore, chatRef]);
 
   useEffect(() => {
     const bottomDiv = bottomRef?.current;
-    const topDiv = chatRef.current;
+    const topDiv = chatRef?.current;
+
     const shouldAutoScroll = () => {
-      if (!hasInitialized && bottomDiv) {
+      if (!hasInitialized) {
         setHasInitialized(true);
         return true;
       }
@@ -48,16 +47,20 @@ export const useChatScroll = ({
         return false;
       }
 
-      const distanceFromBottom = topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight;
+      // Calculate the distance from the bottom of the chat
+      const distanceFromBottom =
+        topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight;
+
+      // Auto-scroll if close to the bottom (100px or less)
       return distanceFromBottom <= 100;
-    }
+    };
 
     if (shouldAutoScroll()) {
       setTimeout(() => {
         bottomRef.current?.scrollIntoView({
-          behavior: "smooth",
+          behavior: hasInitialized ? "smooth" : "auto",
         });
-      }, 100);
+      }, 0);
     }
   }, [bottomRef, chatRef, count, hasInitialized]);
-}
+};
